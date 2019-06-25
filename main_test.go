@@ -1,6 +1,7 @@
 package main
 
 import "testing"
+import "fmt"
 import "github.com/stretchr/testify/assert"
 
 func TestStraightFlush(t *testing.T) {
@@ -13,6 +14,8 @@ func TestStraightFlush(t *testing.T) {
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
+	fmt.Println(result);
+	
 
 	assert.Equal(t, "Straight flush", result, "Straight flush")
 }
