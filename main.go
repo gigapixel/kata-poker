@@ -12,6 +12,7 @@ type Card struct {
 // H - หัวใจ
 // D - ข้าวหลามตัด
 // C - ดอกจิก
+// 2 3 4 - 10 J M K A
 
 // PokerHands -
 type PokerHands struct {
@@ -20,20 +21,14 @@ type PokerHands struct {
 
 func main() {
 	fmt.Println("kata poker");
-	cards := [5]Card{
-		Card{"A", "S"}, 
-		Card{"A", "C"}, 
-		Card{"A", "H"}, 
-		Card{"A", "D"}, 
-		Card{"", ""}
-	}
+	cards := [5]Card{Card{"A", "S"}, Card{"A", "C"}, Card{"A", "H"}, Card{"A", "D"}, Card{"", ""}}
 	hand := PokerHands{cards}
-	fmt.Println(hand);
+	var res = cal(hand);
+	fmt.Println(res);
 }
 
-func cal() {
-
-
-	
+func cal(hand PokerHands) PokerHands {
+	// fmt.Println(hand);
+	return hand;
 }
 
