@@ -24,18 +24,30 @@ func main() {
 	// validCardSuits = ["H", "D", "C", "S"];
 	// var J=11, Q=12, K=13, A=14, C=1, D=2, H=4, S=8;
 
-	cards1 := [5]Card{Card{"A", "C"}, Card{"7", "C"}, Card{"K", "C"}, Card{"J", "C"}, Card{"5", "C"}}
-	numbers := []int{ 0, 0, 0, 0, 0}
+	cards1 := [5]Card{Card{"9", "C"}, Card{"J", "C"}, Card{"10", "C"}, Card{"Q", "C"}, Card{"K", "C"}}
+	numbers := []int{ 0, 0, 0, 0, 0 }
+	faces := []string{ "", "", "", "", "" }
 	for i := 0; i < 5; i++ {
 		numbers[i] = convertStrToInt(cards1[i].points)
+		faces[i] = cards1[i].face
 	}
 	sort.Ints(numbers)
 
+	isStraight := checkStraight(numbers))
 	fmt.Println(numbers)
 }
 
 func checkStraight(numbers []int) bool {
-	for ()
+	for i, num := range numbers {
+		if i == 0 {
+			continue
+		}
+		if (numbers[i - 1] + 1) != num {
+			return false
+		}
+	}
+
+	return true
 }
 
 func convertStrToInt(str string) int {
