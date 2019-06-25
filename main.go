@@ -39,7 +39,7 @@ func main() {
 	card5 := Card{"7", "C"}
 	// hand := PokerHands(cards)
 	// hand.print(card1)
-	cards := []Card{card1, card2, card3, card4, card5}	
+	cards := []Card{card1, card2, card3, card4, card5}
 
 	pokerHands := PokerHands{cards}
 
@@ -53,32 +53,32 @@ func printHand(hand PokerHands) string {
 		return hand.cards[i].getPoint() < hand.cards[j].getPoint()
 	})
 
-	result := ""	
+	result := ""
 
 	// var cntDistinct = countDistinctPoint(hand.cards);
 
-	var customDistinct = getDistinct(hand.cards); // 
-	var cntDistinct = len(customDistinct);
+	var customDistinct = getDistinct(hand.cards) //
+	var cntDistinct = len(customDistinct)
 	// fmt.Println("Count:", cntDistinct, " Data: ", customDistinct)
 
 	/* ยังใช้ cntDistinct ตรงๆ ไม่ได้
-		เพราะ Three of kind กับ Two Pair นับได้ 3 ใบเหมือนกัน
+	เพราะ Three of kind กับ Two Pair นับได้ 3 ใบเหมือนกัน
 	*/
-	if (StraightFlush(hand.cards)) {
+	if StraightFlush(hand.cards) {
 		result = "Straight flush"
-	} else if (cntDistinct == 2 && customDistinct[0] == 4 /* || FourOfAKind(hand.cards) */ ) {
+	} else if cntDistinct == 2 && customDistinct[0] == 4 /* || FourOfAKind(hand.cards) */ {
 		result = "Four of a kind"
-	} else if (cntDistinct == 2 && customDistinct[0] == 3 /* FullHouse(hand.cards) */) {
+	} else if cntDistinct == 2 && customDistinct[0] == 3 /* FullHouse(hand.cards) */ {
 		result = "Full house"
-	} else if (Flush(hand.cards)) {
+	} else if Flush(hand.cards) {
 		result = "Flush"
-	} else if (Straight(hand.cards)) {
+	} else if Straight(hand.cards) {
 		result = "Straight"
-	}	else if (cntDistinct == 3 && customDistinct[0] == 3 /* ThreeOfAKind(hand.cards) */ ) {
+	} else if cntDistinct == 3 && customDistinct[0] == 3 /* ThreeOfAKind(hand.cards) */ {
 		result = "Three of a kind"
-	} else if (cntDistinct == 3 /* || TwoPair(hand.cards) */ ) {
+	} else if cntDistinct == 3 /* || TwoPair(hand.cards) */ {
 		result = "Two pair"
-	} else if (cntDistinct == 4 /* || OnePair(hand.cards) */ ) {
+	} else if cntDistinct == 4 /* || OnePair(hand.cards) */ {
 		result = "One pair"
 	} else {
 		result = "High card"
@@ -97,19 +97,19 @@ func printHand(hand PokerHands) string {
 // 			cnt++
 // 		}
 // 	}
-	
+
 // 	return cnt;
 // }
 
 func getDistinct(cards []Card) []int {
 	var s []int
 
-	var cnt = 1;
+	var cnt = 1
 
-	var strPoint = cards[0].points;
+	var strPoint = cards[0].points
 	for i := 1; i < len(cards); i++ {
 		if strPoint != cards[i].points {
-			strPoint = cards[i].points;
+			strPoint = cards[i].points
 			s = append(s, cnt)
 
 			cnt = 1
@@ -120,21 +120,18 @@ func getDistinct(cards []Card) []int {
 
 	s = append(s, cnt)
 
-
-	sortInt(s, false);	
-	return s;
+	sortInt(s, false)
+	return s
 }
 
-func sortInt(arr []int, sortAsc bool) /* []int */ {
-	slice.Sort(arr[:], func(i, j int) bool {		
-		if (sortAsc) {
+func sortInt(arr []int, sortAsc bool) {
+	slice.Sort(arr[:], func(i, j int) bool {
+		if sortAsc {
 			return arr[i] < arr[j]
 		} else {
 			return arr[i] > arr[j]
 		}
-	});
-
-	// return arr;
+	})
 }
 
 func sameAllFaces(cards []Card) bool {
@@ -146,7 +143,6 @@ func sameAllFaces(cards []Card) bool {
 
 	return true
 }
-
 
 func StraightFlush(cards []Card) bool {
 	pt0 := cards[0].getPoint()
@@ -160,11 +156,11 @@ func StraightFlush(cards []Card) bool {
 }
 
 func FourOfAKind(cards []Card) bool {
-	return false;
+	return false
 }
 
 func FullHouse(cards []Card) bool {
-	return false;
+	return false
 }
 
 func Straight(cards []Card) bool {
@@ -179,26 +175,17 @@ func Straight(cards []Card) bool {
 }
 
 func Flush(cards []Card) bool {
-	return sameAllFaces(cards);
+	return sameAllFaces(cards)
 }
 
 func ThreeOfAKind(cards []Card) bool {
-	return false;
+	return false
 }
 
 func TwoPair(cards []Card) bool {
-	return false;
+	return false
 }
 
 func OnePair(cards []Card) bool {
-	return false;
+	return false
 }
-
-// func FourOfKind(cards [5]Card) bool {
-// 	var cntDup := 0;
-// 	for i := 0; i < len(cards); i++ {
-
-// 	}
-
-// 	return false
-// }
