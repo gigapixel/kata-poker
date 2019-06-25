@@ -12,7 +12,7 @@ type Card struct {
 
 // PokerHands -
 type PokerHands struct {
-	cards [5]Card
+	cards []Card
 }
 
 func (c Card) getPoint() int {
@@ -33,15 +33,13 @@ func (c Card) getPoint() int {
 func main() {
 	// fmt.Println("kata poker")
 	card1 := Card{"10", "C"}
-	card2 := Card{"J", "C"}
+	card2 := Card{"10", "C"}
 	card3 := Card{"9", "C"}
 	card4 := Card{"8", "C"}
 	card5 := Card{"7", "C"}
 	// hand := PokerHands(cards)
 	// hand.print(card1)
-	cards := [5]Card{card1, card2, card3, card4, card5}
-
-	
+	cards := []Card{card1, card2, card3, card4, card5}	
 
 	pokerHands := PokerHands{cards}
 
@@ -57,21 +55,30 @@ func printHand(hand PokerHands) string {
 
 	result := ""	
 
+	// var cntDistinct = countDistinctPoint(hand.cards);
+
+	var customDistinct = getDistinct(hand.cards); // 
+	var cntDistinct = len(customDistinct);
+	// fmt.Println("Count:", cntDistinct, " Data: ", customDistinct)
+
+	/* ยังใช้ cntDistinct ตรงๆ ไม่ได้
+		เพราะ Three of kind กับ Two Pair นับได้ 3 ใบเหมือนกัน
+	*/
 	if (StraightFlush(hand.cards)) {
 		result = "Straight flush"
-	} else if (FourOfAKind(hand.cards)) {
+	} else if (cntDistinct == 2 && customDistinct[0] == 4 /* || FourOfAKind(hand.cards) */ ) {
 		result = "Four of a kind"
-	} else if (FullHouse(hand.cards)) {
+	} else if (cntDistinct == 2 && customDistinct[0] == 3 /* FullHouse(hand.cards) */) {
 		result = "Full house"
 	} else if (Flush(hand.cards)) {
 		result = "Flush"
 	} else if (Straight(hand.cards)) {
 		result = "Straight"
-	}	else if (ThreeOfAKind(hand.cards)) {
+	}	else if (cntDistinct == 3 && customDistinct[0] == 3 /* ThreeOfAKind(hand.cards) */ ) {
 		result = "Three of a kind"
-	} else if (TwoPair(hand.cards)) {
+	} else if (cntDistinct == 3 /* || TwoPair(hand.cards) */ ) {
 		result = "Two pair"
-	} else if (OnePair(hand.cards)) {
+	} else if (cntDistinct == 4 /* || OnePair(hand.cards) */ ) {
 		result = "One pair"
 	} else {
 		result = "High card"
@@ -80,7 +87,57 @@ func printHand(hand PokerHands) string {
 	return result
 }
 
-func sameAllFaces(cards [5]Card) bool {
+// func countDistinctPoint(cards []Card) int {
+// 	var cnt = 1;
+
+// 	var strPoint = cards[0].points;
+// 	for i := 1; i < len(cards); i++ {
+// 		if strPoint != cards[i].points {
+// 			strPoint = cards[i].points;
+// 			cnt++
+// 		}
+// 	}
+	
+// 	return cnt;
+// }
+
+func getDistinct(cards []Card) []int {
+	var s []int
+
+	var cnt = 1;
+
+	var strPoint = cards[0].points;
+	for i := 1; i < len(cards); i++ {
+		if strPoint != cards[i].points {
+			strPoint = cards[i].points;
+			s = append(s, cnt)
+
+			cnt = 1
+		} else {
+			cnt++
+		}
+	}
+
+	s = append(s, cnt)
+
+
+	sortInt(s, false);	
+	return s;
+}
+
+func sortInt(arr []int, sortAsc bool) /* []int */ {
+	slice.Sort(arr[:], func(i, j int) bool {		
+		if (sortAsc) {
+			return arr[i] < arr[j]
+		} else {
+			return arr[i] > arr[j]
+		}
+	});
+
+	// return arr;
+}
+
+func sameAllFaces(cards []Card) bool {
 	for i := 1; i < len(cards); i++ {
 		if cards[0].face != cards[i].face {
 			return false
@@ -91,7 +148,7 @@ func sameAllFaces(cards [5]Card) bool {
 }
 
 
-func StraightFlush(cards [5]Card) bool {
+func StraightFlush(cards []Card) bool {
 	pt0 := cards[0].getPoint()
 	pt1 := cards[1].getPoint()
 	pt2 := cards[2].getPoint()
@@ -102,15 +159,15 @@ func StraightFlush(cards [5]Card) bool {
 	return isCorrectPoint && sameAllFaces(cards)
 }
 
-func FourOfAKind(cards [5]Card) bool {
+func FourOfAKind(cards []Card) bool {
 	return false;
 }
 
-func FullHouse(cards [5]Card) bool {
+func FullHouse(cards []Card) bool {
 	return false;
 }
 
-func Straight(cards [5]Card) bool {
+func Straight(cards []Card) bool {
 	pt0 := cards[0].getPoint()
 	pt1 := cards[1].getPoint()
 	pt2 := cards[2].getPoint()
@@ -121,19 +178,19 @@ func Straight(cards [5]Card) bool {
 	return isCorrectPoint
 }
 
-func Flush(cards [5]Card) bool {
+func Flush(cards []Card) bool {
 	return sameAllFaces(cards);
 }
 
-func ThreeOfAKind(cards [5]Card) bool {
+func ThreeOfAKind(cards []Card) bool {
 	return false;
 }
 
-func TwoPair(cards [5]Card) bool {
+func TwoPair(cards []Card) bool {
 	return false;
 }
 
-func OnePair(cards [5]Card) bool {
+func OnePair(cards []Card) bool {
 	return false;
 }
 

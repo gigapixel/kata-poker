@@ -10,7 +10,7 @@ func TestStraightFlush(t *testing.T) {
 	card3 := Card{"9", "C"}
 	card4 := Card{"8", "C"}
 	card5 := Card{"7", "C"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -25,7 +25,7 @@ func TestFourOfAKind(t *testing.T) {
 	card3 := Card{"1", "D"}
 	card4 := Card{"1", "C"}
 	card5 := Card{"5", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -39,7 +39,7 @@ func TestFullHouse(t *testing.T) {
 	card3 := Card{"6", "D"}
 	card4 := Card{"K", "S"}
 	card5 := Card{"K", "C"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -53,7 +53,7 @@ func TestFlush(t *testing.T) {
 	card3 := Card{"3", "S"}
 	card4 := Card{"4", "S"}
 	card5 := Card{"K", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -67,7 +67,7 @@ func TestStraight(t *testing.T) {
 	card3 := Card{"8", "D"}
 	card4 := Card{"7", "C"}
 	card5 := Card{"6", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -81,7 +81,7 @@ func TestThreeOfAKind(t *testing.T) {
 	card3 := Card{"Q", "D"}
 	card4 := Card{"7", "C"}
 	card5 := Card{"6", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -95,7 +95,7 @@ func TestTwoPair(t *testing.T) {
 	card3 := Card{"3", "D"}
 	card4 := Card{"3", "C"}
 	card5 := Card{"6", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -109,7 +109,7 @@ func TestOnePair(t *testing.T) {
 	card3 := Card{"3", "D"}
 	card4 := Card{"5", "C"}
 	card5 := Card{"6", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
@@ -123,7 +123,7 @@ func TestHighCard(t *testing.T) {
 	card3 := Card{"A", "D"}
 	card4 := Card{"5", "C"}
 	card5 := Card{"6", "S"}
-	hand := [5]Card{card1, card2, card3, card4, card5}
+	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
