@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "strconv"
 import "sort"
 
 // Card -
@@ -14,19 +15,6 @@ type PokerHands struct {
 	cards [5]Card
 }
 
-func poker(hand PokerHands) {
-	// fmt.Println("poker card on hand ->", hand)
-	isStraight := false
-	isFlush := false
-	for i := 0; i < len(hand.cards); i++ {
-		fmt.Println("card[", i+1, "] = ", hand.cards[i])
-	}
-}
-
-func (c PokerHands) Less(i, j int) bool {
-	fmt.Println(c.cards)
-	return c.cards[i].points < c.cards[i].points
-}
 
 func main() {
 	fmt.Println("kata poker")
@@ -36,8 +24,35 @@ func main() {
 	// validCardSuits = ["H", "D", "C", "S"];
 	// var J=11, Q=12, K=13, A=14, C=1, D=2, H=4, S=8;
 
-	cards1 := [5]Card{Card{"5", "C"}, Card{"7", "C"}, Card{"2", "C"}, Card{"3", "C"}, Card{"9", "C"}}
-	hands1 := PokerHands{cards: cards1}
-	sort.Sort(hands1)
-	fmt.Println(hands1)
+	cards1 := [5]Card{Card{"A", "C"}, Card{"7", "C"}, Card{"K", "C"}, Card{"J", "C"}, Card{"5", "C"}}
+	numbers := []int{ 0, 0, 0, 0, 0}
+	for i := 0; i < 5; i++ {
+		numbers[i] = convertStrToInt(cards1[i].points)
+	}
+	sort.Ints(numbers)
+
+	fmt.Println(numbers)
+}
+
+func checkStraight(numbers []int) bool {
+	for ()
+}
+
+func convertStrToInt(str string) int {
+	i, err := strconv.Atoi(str)
+	if err == nil {
+		return i
+	} else {
+		switch str {
+		case "J":
+			return 11
+		case "Q":
+			return 12
+		case "A":
+			return 14
+		case "K":
+			return 13
+		}
+		return 0
+	}
 }
