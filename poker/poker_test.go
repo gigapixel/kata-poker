@@ -104,8 +104,8 @@ func TestHighCard(t *testing.T) {
 		Card{points: "K", face: "D"},
 		Card{points: "Q", face: "D"},
 		Card{points: "7", face: "S"},
-		Card{points: "4", face: "S"},
-		Card{points: "3", face: "H"},
+		Card{points: "3", face: "S"},
+		Card{points: "A", face: "H"},
 	}
 	actual := poker(cards)
 	assert.Equal(t, "high card", actual, "poker cards on hand should be high card")

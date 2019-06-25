@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -35,10 +34,7 @@ func getPointsValue(points string) int {
 	} else if strings.EqualFold("A", points) {
 		return 14
 	} else {
-		num, err := strconv.Atoi(points)
-		if err != nil {
-			return 0
-		}
+		num, _ := strconv.Atoi(points)
 		return num
 	}
 }
@@ -81,11 +77,11 @@ func isFlush(faces map[string]int) bool {
 	return len(faces) == 1
 }
 
-func printCardsTable(cards []Card) {
-	for _, c := range cards {
-		fmt.Println("Card[", c.face, "][", c.points, "] = ", c.value)
-	}
-}
+// func printCardsTable(cards []Card) {
+// 	for _, c := range cards {
+// 		fmt.Println("Card[", c.face, "][", c.points, "] = ", c.value)
+// 	}
+// }
 
 func poker(cards []Card) interface{} {
 	assignPointsValue(cards)
