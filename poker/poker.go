@@ -108,41 +108,23 @@ func poker(cards []Card) interface{} {
 		}
 	}
 
-	switch straight && flush {
-	case true:
-		return "straight flush"
-	}
-
-	switch straight {
-	case true:
-		return "straight"
-	}
-
-	switch flush {
-	case true:
-		return "flush"
-	}
-
 	twoPair := firstPair && secondPair
 	onePair := !twoPair && (firstPair || secondPair)
 
-	switch twoPair {
-	case true:
+	switch {
+	case straight && flush:
+		return "straight flush"
+	case straight:
+		return "straight"
+	case flush:
+		return "flush"
+	case twoPair:
 		return "two pair"
-	}
-
-	switch threeOfaKind && onePair {
-	case true:
+	case threeOfaKind && onePair:
 		return "full house"
-	}
-
-	switch threeOfaKind {
-	case true:
+	case threeOfaKind:
 		return "three of a kind"
-	}
-
-	switch onePair {
-	case true:
+	case onePair:
 		return "one pair"
 	}
 
