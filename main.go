@@ -92,8 +92,8 @@ func test(cards [5]Card) string {
 		i++
 	}
 
-	fmt.Println("CountCardPoint: ", CountCardPoint)
-	fmt.Println("countCardFace: ", countCardFace)
+	// fmt.Println("CountCardPoint: ", CountCardPoint)
+	// fmt.Println("countCardFace: ", countCardFace)
 	if len(countCardFace) == 1 {
 		fmt.Println("Result: Flush")
 		return "Result: Flush"
@@ -106,8 +106,24 @@ func test(cards [5]Card) string {
 			}
 			// break
 		}
-	} else {
-		return "Result: High Card"
+	} else if len(CountCardPoint) == 3 {
+		for _, num := range CountCardPoint {
+			if num == 3 {
+				return "Result: Three of kind"
+			} else if num == 2 {
+				return "Result: Two pair"
+			}
+			// break
+		}
+	} else if len(CountCardPoint) == 4 {
+		for _, num := range CountCardPoint {
+			if num == 2 {
+				return "Result: One pair"
+			}
+			// break
+		}
+	} else if len(CountCardPoint) == 5 {
+		return "Result: High card"
 	}
 	return ""
 }
