@@ -110,12 +110,12 @@ func cal(hand PokerHands) string {
 	}
 
 	// flush
-	var isFlush = isFlush(ranks(hand, "face"));
-	if(isFlush){
+	var rankF = ranks(hand, "face");
+	if(rankF == "5"){
 		strs += "Flush";
 	}
 
-	if(isStraight || isFlush) {
+	if(isStraight || (rankF == "5")) {
 		return strs;
 	}
 
@@ -164,19 +164,6 @@ func convertPoint(points string) int64 {
 	}
 }
 
-func isSameFace(hand PokerHands, expect int) bool {
-	m := make(map[string]string);
-	for _, card := range hand.cards {
-			m[card.face] = card.face
-	}
-
-	if(len(m) == expect) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 func isStraight(hand PokerHands) bool {
 	list := []Card{}
 	for _, k := range hand.cards {
@@ -195,14 +182,6 @@ func isStraight(hand PokerHands) bool {
 		}
 	}
 	return true;
-}
-
-func isFlush(rank string) bool{
-	if(rank == "5"){
-		return true
-	}else {
-		return false;
-	}
 }
 
 func ranks(hand PokerHands, rankType string) string {
