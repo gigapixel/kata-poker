@@ -1,4 +1,4 @@
-module main
+module fomersss
 
 go 1.12
 
