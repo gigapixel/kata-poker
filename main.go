@@ -105,14 +105,18 @@ func main() {
 func cal(hand PokerHands) string {
 	strs := ""
 	var isStraight = isStraight(hand);
-	if(isStraight){
-		strs += "Straight";
+	switch os := true; os {
+		case (isStraight):
+			strs += "Straight";
+		default:
 	}
 
 	// flush
 	var rankF = ranks(hand, "face");
-	if(rankF == "5"){
-		strs += "Flush";
+	switch os := true; os {
+		case (rankF == "5"):
+			strs += "Flush";
+		default:
 	}
 
 	if(isStraight || (rankF == "5")) {
@@ -120,28 +124,20 @@ func cal(hand PokerHands) string {
 	}
 
 	var rank = ranks(hand, "points");
-	if(rank == "4,1"){
+	switch os := true; os {
+	case (rank == "4,1"):
 		strs += "Five of a kind";
-	}
-
-	if(rank == "3,2"){
+	case (rank == "3,2"):
 		strs += "Full house";
-	}
-
-	if(rank == "3,1,1"){
+	case (rank == "3,1,1"):
 		strs += "Three of a kind";
-	}
-
-	if(rank == "2,2,1"){
+	case (rank == "2,2,1"):
 		strs += "Two pair";
-	}
-
-	if(rank == "2,1,1,1"){
+	case (rank == "2,1,1,1"):
 		strs += "One pair";
-	}
-
-	if(rank == "1,1,1,1,1"){
+	case (rank == "1,1,1,1,1"):
 		strs += "High card";
+	default:
 	}
 
 	return strs;
@@ -151,7 +147,7 @@ func convertPoint(points string) int64 {
 	switch os := points; os {
 	case "J":
 		return 11;
-	case "M":
+	case "Q":
 		return 12;
 	case "K":
 		return 13;
@@ -188,10 +184,13 @@ func ranks(hand PokerHands, rankType string) string {
 	// GROUP
 	m := make(map[string][]string);
 	for _, card := range hand.cards {
-		if(rankType == "face"){
+		switch os := rankType; os {
+		case "face":
 			m[card.face] = append(m[card.face], card.face) 
-		} else {
+			break;
+		default:
 			m[card.points] = append(m[card.points], card.points) 
+			break;
 		}
 	}
 
