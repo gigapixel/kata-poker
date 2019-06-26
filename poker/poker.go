@@ -3,7 +3,6 @@ package main
 import (
 	"sort"
 	"strconv"
-	"strings"
 )
 
 // Card -
@@ -25,15 +24,16 @@ func (a ByValue) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByValue) Less(i, j int) bool { return a[i].value < a[j].value }
 
 func getPointsValue(points string) int {
-	if strings.EqualFold("J", points) {
+	switch points {
+	case "J":
 		return 11
-	} else if strings.EqualFold("Q", points) {
+	case "Q":
 		return 12
-	} else if strings.EqualFold("K", points) {
+	case "K":
 		return 13
-	} else if strings.EqualFold("A", points) {
+	case "A":
 		return 14
-	} else {
+	default:
 		num, _ := strconv.Atoi(points)
 		return num
 	}
@@ -62,11 +62,9 @@ func groupAndCountByPoints(cards []Card) map[string]int {
 }
 
 func isStraight(cards []Card) bool {
-	for i, card := range cards {
-		if i == 0 {
-			continue
-		}
-		if (cards[i-1].value + 1) != card.value {
+	for i := 1; i < len(cards); i++ {
+		switch (cards[i-1].value + 1) != cards[i].value {
+		case true:
 			return false
 		}
 	}
@@ -77,12 +75,6 @@ func isFlush(faces map[string]int) bool {
 	return len(faces) == 1
 }
 
-// func printCardsTable(cards []Card) {
-// 	for _, c := range cards {
-// 		fmt.Println("Card[", c.face, "][", c.points, "] = ", c.value)
-// 	}
-// }
-
 func poker(cards []Card) interface{} {
 	assignPointsValue(cards)
 	sort.Sort(ByValue(cards))
@@ -92,59 +84,65 @@ func poker(cards []Card) interface{} {
 
 	straight := isStraight(cards)
 	flush := isFlush(faces)
-	fourOfaKind := false
+	// fourOfaKind := false
 	threeOfaKind := false
 	firstPair := false
 	secondPair := false
 
 	for _, count := range points {
-		if count == 4 {
-			fourOfaKind = true
-		}
-
-		if count == 3 {
+		switch count {
+		case 4:
+			return "four of a kind"
+		case 3:
 			threeOfaKind = true
-		}
-
-		if count == 2 && !firstPair {
-			firstPair = true
-		} else if count == 2 && !secondPair {
-			secondPair = true
+		case 2:
+			switch !firstPair {
+			case true:
+				firstPair = true
+			default:
+				switch !secondPair {
+				case true:
+					secondPair = true
+				}
+			}
 		}
 	}
 
-	if straight && flush {
+	switch straight && flush {
+	case true:
 		return "straight flush"
 	}
 
-	if straight {
+	switch straight {
+	case true:
 		return "straight"
 	}
 
-	if flush {
+	switch flush {
+	case true:
 		return "flush"
-	}
-
-	if fourOfaKind {
-		return "four of a kind"
 	}
 
 	twoPair := firstPair && secondPair
 	onePair := !twoPair && (firstPair || secondPair)
 
-	if twoPair {
+	switch twoPair {
+	case true:
 		return "two pair"
 	}
 
-	if threeOfaKind && onePair {
+	switch threeOfaKind && onePair {
+	case true:
 		return "full house"
 	}
 
-	if threeOfaKind {
+	switch threeOfaKind {
+	case true:
 		return "three of a kind"
 	}
 
-	if onePair {
+	switch onePair {
+	case true:
 		return "one pair"
 	}
 
