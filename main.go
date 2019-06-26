@@ -38,22 +38,6 @@ type PokerHands struct {
 
 func (c Card) getPoint() int {
 	return m_point[c.points];
-
-
-	// return point["K"]
-
-	// if c.points == "A" {
-	// 	return 14
-	// } else if c.points == "K" {
-	// 	return 13
-	// } else if c.points == "Q" {
-	// 	return 12
-	// } else if c.points == "J" {
-	// 	return 11
-	// }
-
-	// s, _ := strconv.ParseInt(c.points, 10, 32)
-	// return int(s)
 }
 
 func main() {
@@ -88,79 +72,44 @@ func printHand(hand PokerHands) string {
 	var isStraight = checkIsStraight(hand.cards); // int
 	var isFlush = checkIsSameAllFaces(hand.cards); // int
 
-	// fmt.Println("Count:", cntDistinct, " Data: ", customDistinct)
-	switch (isStraight)	 {
-		case 1:
-			switch (isFlush) {
-				case 0: result = "Straight"
-				case 1: result = "Straight flush"			
-			}
-		case 0: 
-			switch (isFlush) {
-				case 1: result = "Flush"
-				case 0:
-					switch (cntDistinct) {
-						case 2:
-							switch (lenFirstElement) {
-								case 4: result = "Four of a kind"
-								default: result = "Full house"
-							}
-						case 3:
-							switch (lenFirstElement) {
-								case 3: result = "Three of a kind"
-								default: result = "Two pair"
-							}
-						case 4: result = "One pair"
-						default: result = "High card"
-					}
-			}
-		default: result = "High card"
+	switch {
+		case isStraight && isFlush:
+			result = "Straight flush"
+		case isStraight:
+			result = "Straight"
+		case isFlush:
+			result = "Flush"
+		case cntDistinct == 2 && lenFirstElement == 4:
+			result = "Four of a kind"
+		case cntDistinct == 2:
+			result = "Full house"
+		case cntDistinct == 3 && lenFirstElement == 3:
+			result = "Three of a kind"
+		case cntDistinct == 3:
+			result = "Two pair"
+		case cntDistinct == 4:
+			result = "One pair"
+		default:
+			result = "High card"
 	}
-
-	// if StraightFlush(hand.cards) {
-	// 	result = "Straight flush"
-	// } else if cntDistinct == 2 {
-	// 	if (customDistinct[0] == 4) {
-	// 		result = "Four of a kind"
-	// 	} else {
-	// 		result = "Full house"
-	// 	}	
-	// } else if Flush(hand.cards) {
-	// 	result = "Flush"
-	// } else if Straight(hand.cards) {
-	// 	result = "Straight"
-	// } else if cntDistinct == 3 {
-	// 	if customDistinct[0] == 3 {
-	// 		result = "Three of a kind"
-	// 	} else  {
-	// 		result = "Two pair"
-	// 	}
-	// } else if cntDistinct == 4 {
-	// 	result = "One pair"
-	// } else {
-	// 	result = "High card"
-	// }
 
 	return result
 }
 
 func getDistinct(cards []Card) []int {
 	var s []int
-
 	var cnt = 1
-
 	var strPoint = cards[0].points
+
 	for i := 1; i < len(cards); i++ {
-		switch true {
+		switch {
 			case strPoint != cards[i].points:
 				strPoint = cards[i].points
 				s = append(s, cnt)
 
-				cnt = 1
-				break
+				cnt = 1				
 			default:
-				cnt++
-				break
+				cnt++				
 		}		
 	}
 
@@ -170,34 +119,32 @@ func getDistinct(cards []Card) []int {
 	return s
 }
 
+// Sort by Desc
 func sortInt(arr []int) {
 	slice.Sort(arr[:], func(i, j int) bool {
 		return arr[i] > arr[j]
 	})
 }
 
-func checkIsSameAllFaces(cards []Card) int {
-	var bResult = 1;
+func checkIsSameAllFaces(cards []Card) bool {
 	for i := 1; i < len(cards); i++ {
 		switch true {
 			case cards[0].face != cards[i].face:
-				bResult &= 0;
+				return false;
 		}		
 	}
 
-	return bResult;
-	// return true
+	return true
 }
 
-func checkIsStraight(cards []Card) int {
-	var bResult = 1;
+func checkIsStraight(cards []Card) bool {
 	for i := 1; i < len(cards); i++ {
 		switch true {
 			case cards[i-1].getPoint() != (cards[i].getPoint() - 1):
-				bResult &= 0;
+				return false
 		}	
 	}
 
-	return bResult;
+	return true
 }
 
