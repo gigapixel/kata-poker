@@ -103,7 +103,7 @@ func main() {
 }
 
 func cal(hand PokerHands) string {
-	strs := "-"
+	strs := ""
 	var isStraight = isStraight(hand);
 	if(isStraight){
 		strs += "Straight";
