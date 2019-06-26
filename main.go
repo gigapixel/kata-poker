@@ -17,7 +17,7 @@ var m_point = map[string]int{
 	"J": 11, 
 	"Q": 12, 
 	"K": 13, 
-	"A": 14
+	"A": 14,
 }
 
 // Card -
@@ -130,7 +130,7 @@ func getDistinct(cards []Card) []int {
 	return s
 }
 
-func sortInt(arr []int, sortAsc bool) /* []int */ {
+func sortInt(arr []int, sortAsc bool) {
 	slice.Sort(arr[:], func(i, j int) bool {
 		if sortAsc {
 			return arr[i] < arr[j]
