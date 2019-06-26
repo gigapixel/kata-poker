@@ -20,10 +20,10 @@ func TestStraightFlush(t *testing.T) {
 	assert.Equal(t, "Straight flush", result, "Straight flush")
 }
 func TestFourOfAKind(t *testing.T) {
-	card1 := Card{"1", "S"}
-	card2 := Card{"1", "H"}
-	card3 := Card{"1", "D"}
-	card4 := Card{"1", "C"}
+	card1 := Card{"2", "S"}
+	card2 := Card{"2", "H"}
+	card3 := Card{"2", "D"}
+	card4 := Card{"2", "C"}
 	card5 := Card{"5", "S"}
 	hand := []Card{card1, card2, card3, card4, card5}
 	pokerHand := PokerHands{hand}

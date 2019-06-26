@@ -20,6 +20,11 @@ var m_point = map[string]int{
 	"A": 14,
 }
 
+var m_mapBool = map[bool]int {
+	true: 1,
+	false: 0,
+}
+
 // Card -
 type Card struct {
 	points string // 2 - A
@@ -78,31 +83,63 @@ func printHand(hand PokerHands) string {
 
 	var customDistinct = getDistinct(hand.cards)
 	var cntDistinct = len(customDistinct)
+	var lenFirstElement = customDistinct[0];
+
+	var isStraight = checkIsStraight(hand.cards); // int
+	var isFlush = checkIsSameAllFaces(hand.cards); // int
+
 	// fmt.Println("Count:", cntDistinct, " Data: ", customDistinct)
-	
-	if StraightFlush(hand.cards) {
-		result = "Straight flush"
-	} else if cntDistinct == 2 {
-		if (customDistinct[0] == 4) {
-			result = "Four of a kind"
-		} else {
-			result = "Full house"
-		}	
-	} else if Flush(hand.cards) {
-		result = "Flush"
-	} else if Straight(hand.cards) {
-		result = "Straight"
-	} else if cntDistinct == 3 {
-		if customDistinct[0] == 3 {
-			result = "Three of a kind"
-		} else  {
-			result = "Two pair"
-		}
-	} else if cntDistinct == 4 {
-		result = "One pair"
-	} else {
-		result = "High card"
+	switch (isStraight)	 {
+		case 1:
+			switch (isFlush) {
+				case 0: result = "Straight"
+				case 1: result = "Straight flush"			
+			}
+		case 0: 
+			switch (isFlush) {
+				case 1: result = "Flush"
+				case 0:
+					switch (cntDistinct) {
+						case 2:
+							switch (lenFirstElement) {
+								case 4: result = "Four of a kind"
+								default: result = "Full house"
+							}
+						case 3:
+							switch (lenFirstElement) {
+								case 3: result = "Three of a kind"
+								default: result = "Two pair"
+							}
+						case 4: result = "One pair"
+						default: result = "High card"
+					}
+			}
+		default: result = "High card"
 	}
+
+	// if StraightFlush(hand.cards) {
+	// 	result = "Straight flush"
+	// } else if cntDistinct == 2 {
+	// 	if (customDistinct[0] == 4) {
+	// 		result = "Four of a kind"
+	// 	} else {
+	// 		result = "Full house"
+	// 	}	
+	// } else if Flush(hand.cards) {
+	// 	result = "Flush"
+	// } else if Straight(hand.cards) {
+	// 	result = "Straight"
+	// } else if cntDistinct == 3 {
+	// 	if customDistinct[0] == 3 {
+	// 		result = "Three of a kind"
+	// 	} else  {
+	// 		result = "Two pair"
+	// 	}
+	// } else if cntDistinct == 4 {
+	// 	result = "One pair"
+	// } else {
+	// 	result = "High card"
+	// }
 
 	return result
 }
@@ -114,64 +151,53 @@ func getDistinct(cards []Card) []int {
 
 	var strPoint = cards[0].points
 	for i := 1; i < len(cards); i++ {
-		if strPoint != cards[i].points {
-			strPoint = cards[i].points
-			s = append(s, cnt)
+		switch true {
+			case strPoint != cards[i].points:
+				strPoint = cards[i].points
+				s = append(s, cnt)
 
-			cnt = 1
-		} else {
-			cnt++
-		}
+				cnt = 1
+				break
+			default:
+				cnt++
+				break
+		}		
 	}
 
 	s = append(s, cnt)
 
-	sortInt(s, false)
+	sortInt(s)  // sort desc
 	return s
 }
 
-func sortInt(arr []int, sortAsc bool) {
+func sortInt(arr []int) {
 	slice.Sort(arr[:], func(i, j int) bool {
-		if sortAsc {
-			return arr[i] < arr[j]
-		} else {
-			return arr[i] > arr[j]
-		}
+		return arr[i] > arr[j]
 	})
 }
 
-func checkIsSameAllFaces(cards []Card) bool {
+func checkIsSameAllFaces(cards []Card) int {
+	var bResult = 1;
 	for i := 1; i < len(cards); i++ {
-		if cards[0].face != cards[i].face {
-			return false
-		}
+		switch true {
+			case cards[0].face != cards[i].face:
+				bResult &= 0;
+		}		
 	}
 
-	return true
+	return bResult;
+	// return true
 }
 
-func checkIsStraight(cards []Card) bool {
+func checkIsStraight(cards []Card) int {
+	var bResult = 1;
 	for i := 1; i < len(cards); i++ {
-		if cards[i-1].getPoint() != (cards[i].getPoint() - 1) {
-			return false
-		}
+		switch true {
+			case cards[i-1].getPoint() != (cards[i].getPoint() - 1):
+				bResult &= 0;
+		}	
 	}
 
-	return true
+	return bResult;
 }
 
-func StraightFlush(cards []Card) bool {
-
-	isStraight := checkIsStraight(cards)
-	isSameFace := checkIsSameAllFaces(cards)
-
-	return isStraight && isSameFace
-}
-
-func Straight(cards []Card) bool {
-	return checkIsStraight(cards)
-}
-
-func Flush(cards []Card) bool {
-	return checkIsSameAllFaces(cards)
-}
