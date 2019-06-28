@@ -34,14 +34,37 @@ func main() {
 	// 	{"J", "J"},
 	// }
 
-	// FOUR
+	// // ROYAL
+	// cards := [5]Card{
+	// 	{"A", "S"}, 
+	// 	{"K", "S"}, 
+	// 	{"Q", "S"}, 
+	// 	{"10", "S"}, 
+	// 	{"J", "S"},
+	// }
+
+	// HIGH CARD
 	cards := [5]Card{
-		{"A", "S"}, 
-		{"A", "H"}, 
-		{"A", "D"}, 
-		{"A", "C"}, 
-		{"J", "J"},
+		// {"A", "H"}, 
+		// {"2", "S"}, 
+		// {"7", "D"}, 
+		// {"10", "S"}, 
+		// {"J", "C"},
+		Card{"3", "H"},
+		Card{"2", "S"},
+		Card{"7", "C"},
+		Card{"10", "D"},
+		Card{"3", "S"},
 	}
+
+	// // FOUR
+	// cards := [5]Card{
+	// 	{"A", "S"}, 
+	// 	{"A", "H"}, 
+	// 	{"A", "D"}, 
+	// 	{"A", "C"}, 
+	// 	{"J", "J"},
+	// }
 
 	// // Straight flush*
 	// cards := [5]Card{
@@ -115,21 +138,26 @@ func cal(hand PokerHands) string {
 	strs := ""
 	var isStraight = isStraight(hand);
 	switch os := true; os {
-		case (isStraight):
+		case (isStraight == "Straight"):
 			strs += "Straight";
+		case (isStraight == "Royal"):
+			strs += "RoyalStraight";
 		default:
 	}
 
 	// flush
 	var rankF = ranks(hand, "face");
-	switch os := true; os {
+	switch true {
 		case (rankF == "5"):
 			strs += "Flush";
 		default:
 	}
 
-	if(isStraight || (rankF == "5")) {
-		return strs;
+
+	switch true {
+		case (isStraight == "Straight" || isStraight == "RoyalStraight" || (rankF == "5")):
+			return strs;
+		default:
 	}
 
 	var rank = ranks(hand, "points");
@@ -147,7 +175,14 @@ func cal(hand PokerHands) string {
 	case (rank == "2,1,1,1"):
 		strs += "One pair";
 	case (rank == "1,1,1,1,1"):
-		strs += "High card";
+		list := []Card{}
+		for _, k := range hand.cards {
+			list = append(list, k);
+		}
+		sort.SliceStable(list, func(i, j int) bool {
+			return convertPoint(list[i].points) < convertPoint(list[j].points)
+		})
+		strs += "High card " + list[4].points + ":" + list[4].face;
 	default:
 	}
 
@@ -166,12 +201,15 @@ func convertPoint(points string) int64 {
 		return 14;
 	default:
 		point, err := strconv.ParseInt(points, 10, 64)
-		if err != nil {}	
+		switch true {
+			case (err != nil) : 
+			{}
+		}
 		return point;
 	}
 }
 
-func isStraight(hand PokerHands) bool {
+func isStraight(hand PokerHands) string {
 	list := []Card{}
 	for _, k := range hand.cards {
 		list = append(list, k);
@@ -180,15 +218,24 @@ func isStraight(hand PokerHands) bool {
 		return convertPoint(list[i].points) < convertPoint(list[j].points)
 	})
 	for idx, card := range list {
-		if(idx != 4){
-			next := convertPoint(list[idx + 1].points);
-			me := convertPoint(card.points) + 1;
-			if(next != me){
-				return false;
-			}
+		switch true {
+			case idx != 4:
+				next := convertPoint(list[idx + 1].points);
+				me := convertPoint(card.points) + 1;
+				switch true {
+					case (next != me):
+						return "";
+				}
+				break;
 		}
 	}
-	return true;
+
+	switch true {
+		case (list[4].points == "A"):
+			return "Royal";
+		default:
+			return "Straight";
+	}
 }
 
 func ranks(hand PokerHands, rankType string) string {
@@ -219,15 +266,17 @@ func ranks(hand PokerHands, rankType string) string {
 	var str = "";
 	for index, val := range count {
 		str += strconv.Itoa(val);
-		if(index + 1 != len(count)){
-			str += ",";
+		switch true {
+			case index + 1 != len(count):
+				str += ",";
 		}
 	}
 
 	var jk = "";
 	for _, mval := range m {
-		if((str == "4,1") && (mval[0] == "J" || mval[0] == "A")){
-			jk = "hasJA"
+		switch true {
+			case ((str == "4,1") && (mval[0] == "J" || mval[0] == "A")):
+				jk = "hasJA"
 		}
 	}
 	return str + jk;

@@ -35,6 +35,20 @@ func TestFiveOfAkind(t *testing.T) {
 	assert.Equal(t, expected, res, "Result should be five of kind")
 }
 
+func TestRoyalStraightFlush(t *testing.T) {
+	cards := [5]Card{
+		Card{"A", "S"},
+		Card{"K", "S"},
+		Card{"Q", "S"},
+		Card{"10", "S"},
+		Card{"J", "S"},
+	}
+	hand := PokerHands{cards}
+	var res = cal(hand)
+	var expected = "RoyalStraightFlush"
+	assert.Equal(t, expected, res, "Result should be straight flush")
+}
+
 func TestStraightFlush(t *testing.T) {
 	cards := [5]Card{
 		Card{"J", "S"},
@@ -129,6 +143,34 @@ func TestHighCard(t *testing.T) {
 	}
 	hand := PokerHands{cards}
 	var res = cal(hand)
-	var expected = "High card"
+	var expected = "High card J:C"
 	assert.Equal(t, expected, res, "Result should be high card")
 }
+
+func TestHighCardAH(t *testing.T) {
+	cards := [5]Card{
+		{"A", "H"}, 
+		{"2", "S"}, 
+		{"7", "D"}, 
+		{"10", "S"}, 
+		{"J", "C"},
+	}
+	hand := PokerHands{cards}
+	var res = cal(hand)
+	var expected = "High card A:H"
+	assert.Equal(t, expected, res, "Result should be high card")
+}
+
+// func TestHighCard10D(t *testing.T) {
+// 	cards := [5]Card{
+// 		Card{"3", "H"},
+// 		Card{"2", "S"},
+// 		Card{"7", "C"},
+// 		Card{"10", "D"},
+// 		Card{"3", "S"},
+// 	}
+// 	hand := PokerHands{cards}
+// 	var res = cal(hand)
+// 	var expected = "High card 10:D"
+// 	assert.Equal(t, expected, res, "Result should be high card")
+// }
