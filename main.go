@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
-	// "reflect"
 )
 
 // Card -
@@ -25,24 +24,6 @@ type PokerHands struct {
 }
 
 func main() {
-	// // FIVE
-	// cards := [5]Card{
-	// 	{"A", "S"}, 
-	// 	{"A", "H"}, 
-	// 	{"A", "D"}, 
-	// 	{"A", "C"}, 
-	// 	{"J", "J"},
-	// }
-
-	// // ROYAL
-	// cards := [5]Card{
-	// 	{"A", "S"}, 
-	// 	{"K", "S"}, 
-	// 	{"Q", "S"}, 
-	// 	{"10", "S"}, 
-	// 	{"J", "S"},
-	// }
-
 	// HIGH CARD
 	cards := [5]Card{
 		// {"A", "H"}, 
@@ -56,78 +37,6 @@ func main() {
 		Card{"10", "D"},
 		Card{"3", "S"},
 	}
-
-	// // FOUR
-	// cards := [5]Card{
-	// 	{"A", "S"}, 
-	// 	{"A", "H"}, 
-	// 	{"A", "D"}, 
-	// 	{"A", "C"}, 
-	// 	{"J", "J"},
-	// }
-
-	// // Straight flush*
-	// cards := [5]Card{
-	// 	Card{"J", "S"}, 
-	// 	Card{"10", "S"}, 
-	// 	Card{"9", "S"}, 
-	// 	Card{"8", "S"}, 
-	// 	Card{"7", "S"},
-	// }
-
-	// // Flush
-	// cards := [5]Card{
-	// 	Card{"J", "D"}, 
-	// 	Card{"9", "D"}, 
-	// 	Card{"8", "D"}, 
-	// 	Card{"4", "D"}, 
-	// 	Card{"3", "D"},
-	// }
-
-	// // Full  house
-	// cards := [5]Card{
-	// 	Card{"6", "S"}, 
-	// 	Card{"6", "D"}, 
-	// 	Card{"6", "H"}, 
-	// 	Card{"11", "C"}, 
-	// 	Card{"11", "K"},
-	// }
-
-	// // Three of a kind
-	// cards := [5]Card{
-	// 	Card{"6", "S"}, 
-	// 	Card{"6", "D"}, 
-	// 	Card{"6", "H"}, 
-	// 	Card{"9", "C"}, 
-	// 	Card{"11", "K"},
-	// }
-
-	// // Two pair
-	// cards := [5]Card{
-	// 	Card{"6", "S"}, 
-	// 	Card{"6", "D"}, 
-	// 	Card{"9", "H"}, 
-	// 	Card{"9", "C"}, 
-	// 	Card{"11", "K"},
-	// }
-
-	// // One Pair
-	// cards := [5]Card{
-	// 	Card{"6", "S"}, 
-	// 	Card{"6", "D"}, 
-	// 	Card{"8", "H"}, 
-	// 	Card{"9", "C"}, 
-	// 	Card{"11", "K"},
-	// }
-
-	// // High card
-	// cards := [5]Card{
-	// 	Card{"5", "S"}, 
-	// 	Card{"5", "D"}, 
-	// 	Card{"5", "H"}, 
-	// 	Card{"5", "C"}, 
-	// 	Card{"2", "K"},
-	// }
 
 	hand := PokerHands{cards}
 	var res = cal(hand);

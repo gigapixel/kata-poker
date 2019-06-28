@@ -161,16 +161,16 @@ func TestHighCardAH(t *testing.T) {
 	assert.Equal(t, expected, res, "Result should be high card")
 }
 
-// func TestHighCard10D(t *testing.T) {
-// 	cards := [5]Card{
-// 		Card{"3", "H"},
-// 		Card{"2", "S"},
-// 		Card{"7", "C"},
-// 		Card{"10", "D"},
-// 		Card{"3", "S"},
-// 	}
-// 	hand := PokerHands{cards}
-// 	var res = cal(hand)
-// 	var expected = "High card 10:D"
-// 	assert.Equal(t, expected, res, "Result should be high card")
-// }
+func TestHighCard10D(t *testing.T) {
+	cards := [5]Card{
+		Card{"3", "H"},
+		Card{"2", "S"},
+		Card{"7", "C"},
+		Card{"10", "D"},
+		Card{"4", "S"},
+	}
+	hand := PokerHands{cards}
+	var res = cal(hand)
+	var expected = "High card 10:D"
+	assert.Equal(t, expected, res, "Result should be high card")
+}
