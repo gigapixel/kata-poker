@@ -14,8 +14,7 @@ func TestStraightFlush(t *testing.T) {
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
-	fmt.Println(result);
-	
+	fmt.Println(result)
 
 	assert.Equal(t, "Straight flush", result, "Straight flush")
 }
@@ -128,5 +127,19 @@ func TestHighCard(t *testing.T) {
 
 	var result = printHand(pokerHand)
 
-	assert.Equal(t, "High card", result, "High card")
+	assert.Equal(t, "High card Q S", result, "High card Q S")
+}
+
+func TestRoyal(t *testing.T) {
+	card1 := Card{"Q", "S"}
+	card2 := Card{"K", "S"}
+	card3 := Card{"A", "S"}
+	card4 := Card{"J", "S"}
+	card5 := Card{"10", "S"}
+	hand := []Card{card1, card2, card3, card4, card5}
+	pokerHand := PokerHands{hand}
+
+	var result = printHand(pokerHand)
+
+	assert.Equal(t, "Royal Straight Flush", result, "Royal Straight Flush")
 }
