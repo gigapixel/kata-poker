@@ -1,7 +1,7 @@
 package main
 
 import "testing"
-import "fmt"
+
 import "github.com/stretchr/testify/assert"
 
 func TestStraightFlush(t *testing.T) {
@@ -14,7 +14,7 @@ func TestStraightFlush(t *testing.T) {
 	pokerHand := PokerHands{hand}
 
 	var result = printHand(pokerHand)
-	fmt.Println(result)
+	// fmt.Println(result)
 
 	assert.Equal(t, "Straight flush", result, "Straight flush")
 }
@@ -127,7 +127,7 @@ func TestHighCard(t *testing.T) {
 
 	var result = printHand(pokerHand)
 
-	assert.Equal(t, "High card Q S", result, "High card Q S")
+	assert.Equal(t, "High card A D", result, "High card A D")
 }
 
 func TestRoyal(t *testing.T) {
