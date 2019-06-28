@@ -134,5 +134,5 @@ func poker(cards []Card) interface{} {
 		return "one pair"
 	}
 
-	return "high card is " + hightestCard.points
+	return "high card is " + hightestCard.points + "-" + hightestCard.face
 }

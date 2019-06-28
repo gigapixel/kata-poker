@@ -108,7 +108,7 @@ func TestHighCard(t *testing.T) {
 		Card{points: "10", face: "H"},
 	}
 	actual := poker(cards)
-	assert.Equal(t, "high card is K", actual, "poker cards on hand should be high card")
+	assert.Equal(t, "high card is K-D", actual, "poker cards on hand should be high card")
 }
 
 func TestRoyalStraightFlush(t *testing.T) {
