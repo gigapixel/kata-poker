@@ -79,6 +79,8 @@ func poker(cards []Card) interface{} {
 	assignPointsValue(cards)
 	sort.Sort(ByValue(cards))
 
+	hightestCard := cards[4]
+
 	faces := groupAndCountByFace(cards)
 	points := groupAndCountByPoints(cards)
 
@@ -113,7 +115,11 @@ func poker(cards []Card) interface{} {
 
 	switch {
 	case straight && flush:
-		return "straight flush"
+		switch hightestCard.value {
+		case 14: return "royal straight flush"
+		default: return "straight flush"
+		}
+		
 	case straight:
 		return "straight"
 	case flush:
@@ -128,5 +134,5 @@ func poker(cards []Card) interface{} {
 		return "one pair"
 	}
 
-	return "high card"
+	return "high card is " + hightestCard.points
 }

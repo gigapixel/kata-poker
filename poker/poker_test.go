@@ -105,8 +105,20 @@ func TestHighCard(t *testing.T) {
 		Card{points: "Q", face: "D"},
 		Card{points: "7", face: "S"},
 		Card{points: "3", face: "S"},
-		Card{points: "A", face: "H"},
+		Card{points: "10", face: "H"},
 	}
 	actual := poker(cards)
-	assert.Equal(t, "high card", actual, "poker cards on hand should be high card")
+	assert.Equal(t, "high card is K", actual, "poker cards on hand should be high card")
+}
+
+func TestRoyalStraightFlush(t *testing.T) {
+	cards := []Card{
+		Card{points: "10", face: "D"},
+		Card{points: "J", face: "D"},
+		Card{points: "Q", face: "D"},
+		Card{points: "K", face: "D"},
+		Card{points: "A", face: "D"},
+	}
+	actual := poker(cards)
+	assert.Equal(t, "royal straight flush", actual, "poker cards on hand should be royal straight flush")
 }
