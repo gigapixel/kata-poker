@@ -34,6 +34,15 @@ func main() {
 	// 	{"J", "J"},
 	// }
 
+	// FOUR
+	cards := [5]Card{
+		{"A", "S"}, 
+		{"A", "H"}, 
+		{"A", "D"}, 
+		{"A", "C"}, 
+		{"J", "J"},
+	}
+
 	// // Straight flush*
 	// cards := [5]Card{
 	// 	Card{"J", "S"}, 
@@ -88,14 +97,14 @@ func main() {
 	// 	Card{"11", "K"},
 	// }
 
-	// High card
-	cards := [5]Card{
-		Card{"3", "S"}, 
-		Card{"6", "D"}, 
-		Card{"8", "H"}, 
-		Card{"9", "C"}, 
-		Card{"11", "K"},
-	}
+	// // High card
+	// cards := [5]Card{
+	// 	Card{"5", "S"}, 
+	// 	Card{"5", "D"}, 
+	// 	Card{"5", "H"}, 
+	// 	Card{"5", "C"}, 
+	// 	Card{"2", "K"},
+	// }
 
 	hand := PokerHands{cards}
 	var res = cal(hand);
@@ -124,9 +133,11 @@ func cal(hand PokerHands) string {
 	}
 
 	var rank = ranks(hand, "points");
-	switch os := true; os {
-	case (rank == "4,1"):
+	switch true {
+	case (rank == "4,1hasJA"):
 		strs += "Five of a kind";
+	case (rank == "4,1"):
+		strs += "Four of a kind";
 	case (rank == "3,2"):
 		strs += "Full house";
 	case (rank == "3,1,1"):
@@ -212,7 +223,12 @@ func ranks(hand PokerHands, rankType string) string {
 			str += ",";
 		}
 	}
-	// fmt.Println(str);
-	return str;
-}
 
+	var jk = "";
+	for _, mval := range m {
+		if((str == "4,1") && (mval[0] == "J" || mval[0] == "A")){
+			jk = "hasJA"
+		}
+	}
+	return str + jk;
+}

@@ -7,13 +7,19 @@ type Person struct {
 	name string
 }
 
-// func TestFlush(t *testing.T) {
-// 	cards := [5]Card{Card{"A", "S"}, Card{"2", "S"}, Card{"3", "S"}, Card{"4", "S"}, Card{"5", "S"}}
-// 	hand := PokerHands{cards}
-// 	var res = cal(hand);
-// 	var expected = "flush";
-// 	assert.Equal(t, expected, res, "Result should be 30")
-// }
+func TestFourOfKind(t *testing.T) {
+	cards := [5]Card{
+	 Card{"5", "S"},
+	 Card{"5", "H"},
+	 Card{"5", "D"},
+	 Card{"5", "C"},
+	 Card{"8", "H"},
+	}
+	hand := PokerHands{cards}
+	var res = cal(hand)
+	var expected = "Four of a kind"
+	assert.Equal(t, expected, res, "Result should be four of a kind")
+ }
 
 func TestFiveOfAkind(t *testing.T) {
 	cards := [5]Card{
