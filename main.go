@@ -47,10 +47,8 @@ func cal(hand PokerHands) string {
 	strs := ""
 	var isStraight = isStraight(hand);
 	switch os := true; os {
-		case (isStraight == "Straight"):
-			strs += "Straight";
-		case (isStraight == "Royal"):
-			strs += "RoyalStraight";
+		case (isStraight != ""):
+			strs += isStraight;
 		default:
 	}
 
@@ -64,7 +62,7 @@ func cal(hand PokerHands) string {
 
 
 	switch true {
-		case (isStraight == "Straight" || isStraight == "RoyalStraight" || (rankF == "5")):
+		case (isStraight != "" || (rankF == "5")):
 			return strs;
 		default:
 	}
@@ -135,13 +133,12 @@ func isStraight(hand PokerHands) string {
 					case (next != me):
 						return "";
 				}
-				break;
 		}
 	}
 
 	switch true {
 		case (list[4].points == "A"):
-			return "Royal";
+			return "RoyalStraight";
 		default:
 			return "Straight";
 	}
@@ -154,10 +151,8 @@ func ranks(hand PokerHands, rankType string) string {
 		switch os := rankType; os {
 		case "face":
 			m[card.face] = append(m[card.face], card.face) 
-			break;
 		default:
 			m[card.points] = append(m[card.points], card.points) 
-			break;
 		}
 	}
 
